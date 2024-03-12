@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 import uuid
 import random
 from datetime import datetime, timedelta
+from rest_framework_simplejwt.tokens import RefreshToken
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -87,8 +88,13 @@ class User(BaseModel,AbstractUser):
         )
         return code
     
+    def token(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            "refresh":str(refresh),
+            "access":str(refresh.access_token),
 
-
+        }
 class UserCodeVerification(BaseModel):
     AUTH_TYPES_CHOICES=(
         (VIA_PHONE,VIA_PHONE),
