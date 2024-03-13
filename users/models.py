@@ -87,14 +87,14 @@ class User(BaseModel,AbstractUser):
             user_id=self.id
         )
         return code
-    
-    def token(self):
-        refresh = RefreshToken.for_user(self)
-        return {
-            "refresh":str(refresh),
-            "access":str(refresh.access_token),
+        
+        def token(self):
+            refresh = RefreshToken.for_user(self)
+            return {
+                "refresh":str(refresh),
+                "access":str(refresh.access_token),
 
-        }
+            }
 class UserCodeVerification(BaseModel):
     AUTH_TYPES_CHOICES=(
         (VIA_PHONE,VIA_PHONE),

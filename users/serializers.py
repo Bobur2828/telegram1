@@ -21,6 +21,7 @@ class SignUpSerializer(serializers.ModelSerializer):
         user=User.objects.filter(Q(email=email_phone)|Q(phone_number=email_phone))
         if user.exists():
             data={
+                
                 "status": "False",
                 "message": "Foydalanuvchi allaqachon mavjud"
             } 
